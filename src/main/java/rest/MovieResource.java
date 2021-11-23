@@ -2,14 +2,15 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.ImdbMovieDTO;
 import facades.UserFacade;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import security.HttpClient;
 import utils.EMF_Creator;
 import utils.HttpUtils;
 
@@ -31,16 +32,17 @@ public class MovieResource {
     SecurityContext securityContext;
 
     @GET
-    @Path("movietitle/{title}")
+    @Path("title/{title}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void getCatFacts(@PathParam("title")String title) throws IOException {
-
-
-//        CloseableHttpClient httpClient = new CloseableHttpClient();
-////        String catFact = HttpUtils.fetchData("https://catfact.ninja/fact");
-//        HttpGet httpGet = new HttpGet("https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term="+ title + "&country=us");
-//        httpGet.addHeader("x-rapidapi-key", "7bdff84145msh4480520f958f4ebp1f543fjsnda49759e8066");
-//        HttpResponse response = httpclient.execute(httpGet);
-      //  return gson.toJson(request);
+    public String getTitle(@PathParam("title")String title) throws Exception {
+        security.HttpClient obj = new HttpClient();
+        String response = "";
+        try {
+            response = obj.sendGet(title);
+        } finally {
+            obj.close();
+        }
+        ImdbMovieDTO dto = gson.fromJson(response,ImdbMovieDTO.class);
+        return gson.toJson(dto.toString());
     }
 }

@@ -59,22 +59,7 @@ public class DemoResource {
         }
     }
 
-    @GET
-    @Path("title/{title}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getTitle(@PathParam("title")String title) throws Exception {
-        HttpClient obj = new HttpClient();
-        String response = "";
-        try {
-             response = obj.sendGet(title);
-        } finally {
-            obj.close();
-        }
-        ImdbMovieDTO dto = gson.fromJson(response,ImdbMovieDTO.class);
-        System.out.println(dto);
 
-        return gson.toJson(dto.toString());
-    }
 
     @GET
     @Path("crypto")
