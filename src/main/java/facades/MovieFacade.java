@@ -10,11 +10,19 @@ public class MovieFacade {
 
 
     private MovieFacade(){
-
     }
 
 
-    public static MovieFacade
+    public static MovieFacade getMovieFacade(EntityManagerFactory _emf){
+        if (facade == null){
+            emf = _emf;
+            facade = new MovieFacade();
+        }
+        return facade;
+    }
+
+
+
 
 
 }
