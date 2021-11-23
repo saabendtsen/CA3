@@ -7,10 +7,10 @@ import java.util.List;
 public class MovieMapper {
 
 
-    private List<ImdbMovieDTO> getMovie(ImdbMovieDTO imdbMovieDTO){
-        for ( o : ) {
 
-        }
+
+    private List<ImdbMovieDTO.Result> getMovie(ImdbMovieDTO imdbMovieDTO) {
+
 
         return null;
     }
