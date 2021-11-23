@@ -19,6 +19,7 @@ import javax.ws.rs.core.SecurityContext;
 
 import facades.UserFacade;
 import org.eclipse.persistence.annotations.CompositeMember;
+import security.HttpClient;
 import utils.EMF_Creator;
 import utils.HttpUtils;
 
@@ -56,13 +57,21 @@ public class DemoResource {
             em.close();
         }
     }
+
     @GET
-    @Path("randomuser")
+    @Path("title/{title}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getRandomUser() throws IOException {
-        String catFact = HttpUtils.fetchData("https://randomuser.me/api/");
-        return catFact;
+    public String getTitle(@PathParam("title")String title) throws Exception {
+        HttpClient obj = new HttpClient();
+        String response = "";
+        try {
+             response = obj.sendGet(title);
+        } finally {
+            obj.close();
+        }
+        return response;
     }
+
     @GET
     @Path("crypto")
     @Produces(MediaType.APPLICATION_JSON)
