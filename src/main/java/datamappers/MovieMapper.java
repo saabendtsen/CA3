@@ -1,16 +1,25 @@
 package datamappers;
 
-import dtos.ImdbMovieDTO;
+import dtos.ImdbResponseDTO;
+import dtos.MovieDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieMapper {
 
 
-    private List<ImdbMovieDTO.Result> getMovie(ImdbMovieDTO imdbMovieDTO) {
+    public List<MovieDTO> getMovie(ImdbResponseDTO imdbResponseDTO) {
+        List<MovieDTO> list = new ArrayList<>();
 
-
-        return null;
+        for (ImdbResponseDTO.Result result : imdbResponseDTO.results) {
+            List<String> movieDTOList = new ArrayList<>();
+            for (ImdbResponseDTO.Location location : result.locations) {
+                movieDTOList.add(location.display_name);
+            }
+            list.add(new MovieDTO(result.external_ids.imdb.id,result.name, movieDTOList));
+        }
+        return list;
     }
 
 }

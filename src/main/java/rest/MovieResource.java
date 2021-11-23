@@ -2,28 +2,24 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.ImdbMovieDTO;
+import datamappers.MovieMapper;
+import dtos.ImdbResponseDTO;
+import dtos.MovieDTO;
 import facades.UserFacade;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import security.HttpClient;
 import utils.EMF_Creator;
-import utils.HttpUtils;
 
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.io.Closeable;
-import java.io.IOException;
+import java.util.List;
 
 @Path("/movie")
 public class MovieResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
+    private MovieMapper movieMapper = new MovieMapper();
+
     @Context
     private UriInfo context;
     private UserFacade facade = UserFacade.getUserFacade(EMF);
@@ -42,7 +38,8 @@ public class MovieResource {
         } finally {
             obj.close();
         }
-        ImdbMovieDTO dto = gson.fromJson(response,ImdbMovieDTO.class);
-        return gson.toJson(dto.toString());
+        ImdbResponseDTO dto = gson.fromJson(response, ImdbResponseDTO.class);
+//        return gson.toJson(dto.toString())
+        return gson.toJson(movieMapper.getMovie(dto));
     }
 }

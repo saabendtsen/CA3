@@ -3,7 +3,7 @@ package dtos;
 import java.util.Date;
 import java.util.List;
 
-public class ImdbMovieDTO {
+public class ImdbResponseDTO {
 
     public String variant;
     public List<Result> results;
@@ -11,7 +11,7 @@ public class ImdbMovieDTO {
     public String term;
     public int status_code;
 
-    public ImdbMovieDTO(String variant, List<Result> results, Date updated, String term, int status_code) {
+    public ImdbResponseDTO(String variant, List<Result> results, Date updated, String term, int status_code) {
         this.variant = variant;
         this.results = results;
         this.updated = updated;
@@ -19,7 +19,7 @@ public class ImdbMovieDTO {
         this.status_code = status_code;
     }
 
-    public ImdbMovieDTO() {
+    public ImdbResponseDTO() {
     }
 
     public String getVariant() {

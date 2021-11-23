@@ -2,7 +2,6 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.ImdbMovieDTO;
 import dtos.UserDTO;
 import entities.User;
 
@@ -19,8 +18,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 
 import facades.UserFacade;
-import org.eclipse.persistence.annotations.CompositeMember;
-import security.HttpClient;
 import utils.EMF_Creator;
 import utils.HttpUtils;
 
