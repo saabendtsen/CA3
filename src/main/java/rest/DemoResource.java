@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.ImdbMovieDTO;
 import dtos.UserDTO;
 import entities.User;
 
@@ -69,7 +70,10 @@ public class DemoResource {
         } finally {
             obj.close();
         }
-        return response;
+        ImdbMovieDTO dto = gson.fromJson(response,ImdbMovieDTO.class);
+        System.out.println(dto);
+
+        return gson.toJson(dto.toString());
     }
 
     @GET

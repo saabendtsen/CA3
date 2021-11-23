@@ -5,7 +5,15 @@ import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.core.HttpHeaders;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.impl.client.HttpClients;
 import security.errorhandling.AuthenticationException;
+
+import java.io.IOException;
 
 /**
  * @author lam@cphbusiness.dk
@@ -75,4 +83,21 @@ public class UserFacade {
         }
     }
 
+    public static void main(String[] args) throws IOException {
+        movie();
+    }
+
+    public static   void movie () throws IOException {
+        HttpClient client = HttpClients.custom().build();
+        HttpUriRequest request = RequestBuilder.get()
+                .setUri("https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=" + "frozen" + "&country=us")
+                .setHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                .setHeader("x-rapidapi-key", "7bdff84145msh4480520f958f4ebp1f543fjsnda49759e8066")
+                .build();
+
+        org.apache.http.HttpResponse response = client.execute(request);
+
+
+        System.out.println(response.toString());
+    }
 }
