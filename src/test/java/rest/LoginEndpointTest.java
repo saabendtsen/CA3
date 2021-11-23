@@ -135,7 +135,7 @@ public class LoginEndpointTest {
                 .when()
                 .get("/info/admin").then()
                 .statusCode(200)
-                .body("msg", equalTo("Hello to (admin) User: admin"));
+                .body("msg", equalTo("Hello: admin   -   Role: admin"));
     }
 
     @Test
@@ -147,7 +147,7 @@ public class LoginEndpointTest {
                 .when()
                 .get("/info/user").then()
                 .statusCode(200)
-                .body("msg", equalTo("Hello to User: user"));
+                .body("msg", equalTo("Hello: user   -   Role: user"));
     }
 
     @Test
@@ -182,7 +182,7 @@ public class LoginEndpointTest {
                 .when()
                 .get("/info/admin").then()
                 .statusCode(200)
-                .body("msg", equalTo("Hello to (admin) User: user_admin"));
+                .body("msg", equalTo("Hello: user_admin   -   Role: admin"));
     }
 
     @Test
@@ -194,7 +194,7 @@ public class LoginEndpointTest {
                 .when()
                 .get("/info/user").then()
                 .statusCode(200)
-                .body("msg", equalTo("Hello to User: user_admin"));
+                .body("msg", equalTo("Hello: user_admin   -   Role: user"));
     }
 
     @Test
