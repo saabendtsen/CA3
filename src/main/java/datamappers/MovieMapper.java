@@ -18,6 +18,17 @@ public class MovieMapper {
             }
             list.add(new MovieDTO(result.external_ids.imdb.id,result.name, movieDTOList));
         }
+
         return list;
     }
+
+    public List<MovieDTO> addInfo (List<MovieDTO> list){
+
+
+
+
+
+
+    }
+
 }
