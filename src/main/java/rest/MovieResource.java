@@ -34,7 +34,24 @@ public class MovieResource {
         security.HttpClient obj = new HttpClient();
         String response = "";
         try {
-            response = obj.sendGet(title);
+            response = obj.sendGet(title,false);
+        } finally {
+            obj.close();
+        }
+        ImdbResponseDTO dto = gson.fromJson(response, ImdbResponseDTO.class);
+//        return gson.toJson(dto.toString())
+        return gson.toJson(movieMapper.getMovie(dto));
+    }
+
+
+    @GET
+    @Path("id/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getId(@PathParam("id")String id) throws Exception {
+        security.HttpClient obj = new HttpClient();
+        String response = "";
+        try {
+            response = obj.sendGet(id,true);
         } finally {
             obj.close();
         }

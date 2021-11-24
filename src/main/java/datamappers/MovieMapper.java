@@ -11,7 +11,6 @@ public class MovieMapper {
 
     public List<MovieDTO> getMovie(ImdbResponseDTO imdbResponseDTO) {
         List<MovieDTO> list = new ArrayList<>();
-
         for (ImdbResponseDTO.Result result : imdbResponseDTO.results) {
             List<String> movieDTOList = new ArrayList<>();
             for (ImdbResponseDTO.Location location : result.locations) {
@@ -21,5 +20,4 @@ public class MovieMapper {
         }
         return list;
     }
-
 }
