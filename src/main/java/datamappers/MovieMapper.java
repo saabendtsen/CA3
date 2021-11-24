@@ -31,7 +31,7 @@ public class MovieMapper {
     public List<MovieDTO> addInfo (List<MovieDTO> list) throws Exception {
         for (MovieDTO dto : list){
             AddInfoDTO addInfoDTO = getAddInfo(dto);
-
+            System.out.println(addInfoDTO.toString());
             dto.setYear(addInfoDTO.getYear());
             dto.setGenre(addInfoDTO.getGenre());
             dto.setRated(addInfoDTO.getRated());
@@ -50,6 +50,7 @@ public class MovieMapper {
         String response = "";
         try {
             response = obj.sendGet(dto.getId(),true);
+            System.out.println(response);
         } finally {
             obj.close();
         }
