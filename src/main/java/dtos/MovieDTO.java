@@ -8,10 +8,6 @@ public class MovieDTO {
     private String id;
     private String movieName;
     private List<String> placersToWatch;
-
-
-
-
     private String year;
     private String genre;
     private String rated;
