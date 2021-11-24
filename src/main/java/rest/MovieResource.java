@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import datamappers.MovieMapper;
+import dtos.AddInfoDTO;
 import dtos.ImdbResponseDTO;
 import dtos.MovieDTO;
 import facades.UserFacade;
@@ -39,23 +40,8 @@ public class MovieResource {
             obj.close();
         }
         ImdbResponseDTO dto = gson.fromJson(response, ImdbResponseDTO.class);
-//        return gson.toJson(dto.toString())
-        return gson.toJson(movieMapper.getMovie(dto));
-    }
 
 
-    @GET
-    @Path("id/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getId(@PathParam("id")String id) throws Exception {
-        security.HttpClient obj = new HttpClient();
-        String response = "";
-        try {
-            response = obj.sendGet(id,true);
-        } finally {
-            obj.close();
-        }
-        ImdbResponseDTO dto = gson.fromJson(response, ImdbResponseDTO.class);
 //        return gson.toJson(dto.toString())
         return gson.toJson(movieMapper.getMovie(dto));
     }

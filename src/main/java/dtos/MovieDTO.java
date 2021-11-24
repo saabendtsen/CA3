@@ -26,6 +26,8 @@ public class MovieDTO {
         this.placersToWatch = placersToWatch;
     }
 
+
+
     public String getId() {
         return id;
     }
