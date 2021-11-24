@@ -1,25 +1,23 @@
 package dtos;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 public class AddInfoDTO {
 
-    public String title;
-    public String year;
-    public String rated;
-    public String released;
-    public String runtime;
-    public String genre;
-    public String director;
-    public String writer;
-    public String actors;
-    public String plot;
-    public String language;
-    public String country;
-    public String awards;
-    public String poster;
+    public String Title;
+    public String Year;
+    public String Rated;
+    public String Released;
+    public String Runtime;
+    public String Genre;
+    public String Director;
+    public String Writer;
+    public String Actors;
+    public String Plot;
+    public String Language;
+    public String Country;
+    public String Awards;
+    public String Poster;
     public List<Rating> ratings;
     public String metascore;
     public String imdbRating;
@@ -27,26 +25,26 @@ public class AddInfoDTO {
     public String imdbID;
     public String type;
     public String dVD;
-    public String boxOffice;
+    public String BoxOffice;
     public String production;
     public String website;
     public String response;
 
     public AddInfoDTO(String title, String year, String rated, String released, String runtime, String genre, String director, String writer, String actors, String plot, String language, String country, String awards, String poster, List<Rating> ratings, String metascore, String imdbRating, String imdbVotes, String imdbID, String type, String dVD, String boxOffice, String production, String website, String response) {
-        this.title = title;
-        this.year = year;
-        this.rated = rated;
-        this.released = released;
-        this.runtime = runtime;
-        this.genre = genre;
-        this.director = director;
-        this.writer = writer;
-        this.actors = actors;
-        this.plot = plot;
-        this.language = language;
-        this.country = country;
-        this.awards = awards;
-        this.poster = poster;
+        this.Title = title;
+        this.Year = year;
+        this.Rated = rated;
+        this.Released = released;
+        this.Runtime = runtime;
+        this.Genre = genre;
+        this.Director = director;
+        this.Writer = writer;
+        this.Actors = actors;
+        this.Plot = plot;
+        this.Language = language;
+        this.Country = country;
+        this.Awards = awards;
+        this.Poster = poster;
         this.ratings = ratings;
         this.metascore = metascore;
         this.imdbRating = imdbRating;
@@ -54,7 +52,7 @@ public class AddInfoDTO {
         this.imdbID = imdbID;
         this.type = type;
         this.dVD = dVD;
-        this.boxOffice = boxOffice;
+        this.BoxOffice = boxOffice;
         this.production = production;
         this.website = website;
         this.response = response;
@@ -63,20 +61,20 @@ public class AddInfoDTO {
     @Override
     public String toString() {
         return "AddInfoDTO{" +
-                "title='" + title + '\'' +
-                ", year='" + year + '\'' +
-                ", rated='" + rated + '\'' +
-                ", released='" + released + '\'' +
-                ", runtime='" + runtime + '\'' +
-                ", genre='" + genre + '\'' +
-                ", director='" + director + '\'' +
-                ", writer='" + writer + '\'' +
-                ", actors='" + actors + '\'' +
-                ", plot='" + plot + '\'' +
-                ", language='" + language + '\'' +
-                ", country='" + country + '\'' +
-                ", awards='" + awards + '\'' +
-                ", poster='" + poster + '\'' +
+                "title='" + Title + '\'' +
+                ", year='" + Year + '\'' +
+                ", rated='" + Rated + '\'' +
+                ", released='" + Released + '\'' +
+                ", runtime='" + Runtime + '\'' +
+                ", genre='" + Genre + '\'' +
+                ", director='" + Director + '\'' +
+                ", writer='" + Writer + '\'' +
+                ", actors='" + Actors + '\'' +
+                ", plot='" + Plot + '\'' +
+                ", language='" + Language + '\'' +
+                ", country='" + Country + '\'' +
+                ", awards='" + Awards + '\'' +
+                ", poster='" + Poster + '\'' +
                 ", ratings=" + ratings +
                 ", metascore='" + metascore + '\'' +
                 ", imdbRating='" + imdbRating + '\'' +
@@ -84,7 +82,7 @@ public class AddInfoDTO {
                 ", imdbID='" + imdbID + '\'' +
                 ", type='" + type + '\'' +
                 ", dVD='" + dVD + '\'' +
-                ", boxOffice='" + boxOffice + '\'' +
+                ", boxOffice='" + BoxOffice + '\'' +
                 ", production='" + production + '\'' +
                 ", website='" + website + '\'' +
                 ", response='" + response + '\'' +
@@ -92,59 +90,59 @@ public class AddInfoDTO {
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public String getYear() {
-        return year;
+        return Year;
     }
 
     public String getRated() {
-        return rated;
+        return Rated;
     }
 
     public String getReleased() {
-        return released;
+        return Released;
     }
 
     public String getRuntime() {
-        return runtime;
+        return Runtime;
     }
 
     public String getGenre() {
-        return genre;
+        return Genre;
     }
 
     public String getDirector() {
-        return director;
+        return Director;
     }
 
     public String getWriter() {
-        return writer;
+        return Writer;
     }
 
     public String getActors() {
-        return actors;
+        return Actors;
     }
 
     public String getPlot() {
-        return plot;
+        return Plot;
     }
 
     public String getLanguage() {
-        return language;
+        return Language;
     }
 
     public String getCountry() {
-        return country;
+        return Country;
     }
 
     public String getAwards() {
-        return awards;
+        return Awards;
     }
 
     public String getPoster() {
-        return poster;
+        return Poster;
     }
 
     public List<Rating> getRatings() {
@@ -176,7 +174,7 @@ public class AddInfoDTO {
     }
 
     public String getBoxOffice() {
-        return boxOffice;
+        return BoxOffice;
     }
 
     public String getProduction() {

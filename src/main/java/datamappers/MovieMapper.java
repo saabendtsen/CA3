@@ -54,6 +54,7 @@ public class MovieMapper {
         } finally {
             obj.close();
         }
+
         return gson.fromJson(response, AddInfoDTO.class);
     }
 }
