@@ -3,6 +3,7 @@ package facades;
 import dtos.UserDTO;
 import entities.Role;
 import entities.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.HttpHeaders;
@@ -27,7 +28,6 @@ public class UserFacade {
     }
 
     /**
-     *
      * @param _emf
      * @return the instance of this facade.
      */
@@ -53,51 +53,33 @@ public class UserFacade {
         return user;
     }
 
-    public UserDTO createUser (UserDTO userDTO){
+    public UserDTO createUser(UserDTO userDTO) {
         EntityManager em = emf.createEntityManager();
         User user = new User(userDTO);
         Role userRole = new Role("user");
         user.addRole(userRole);
 
-        try{
+        try {
             em.getTransaction().begin();
             em.persist(user);
             em.getTransaction().commit();
-        }finally {
+        } finally {
             em.close();
         }
         return new UserDTO(user);
     }
 
 
-    public UserDTO deleteUser (String userName){
+    public UserDTO deleteUser(String userName) {
         EntityManager em = emf.createEntityManager();
-        try{
+        try {
             em.getTransaction().begin();
-            User user = em.find(User.class,userName);
+            User user = em.find(User.class, userName);
             em.remove(user);
             em.getTransaction().commit();
             return new UserDTO(user);
-        }finally {
+        } finally {
             em.close();
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        movie();
-    }
-
-    public static   void movie () throws IOException {
-        HttpClient client = HttpClients.custom().build();
-        HttpUriRequest request = RequestBuilder.get()
-                .setUri("https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=" + "frozen" + "&country=us")
-                .setHeader(HttpHeaders.CONTENT_TYPE, "application/json")
-                .setHeader("x-rapidapi-key", "7bdff84145msh4480520f958f4ebp1f543fjsnda49759e8066")
-                .build();
-
-        org.apache.http.HttpResponse response = client.execute(request);
-
-
-        System.out.println(response.toString());
     }
 }

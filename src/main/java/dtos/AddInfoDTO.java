@@ -58,37 +58,6 @@ public class AddInfoDTO {
         this.response = response;
     }
 
-    @Override
-    public String toString() {
-        return "AddInfoDTO{" +
-                "title='" + Title + '\'' +
-                ", year='" + Year + '\'' +
-                ", rated='" + Rated + '\'' +
-                ", released='" + Released + '\'' +
-                ", runtime='" + Runtime + '\'' +
-                ", genre='" + Genre + '\'' +
-                ", director='" + Director + '\'' +
-                ", writer='" + Writer + '\'' +
-                ", actors='" + Actors + '\'' +
-                ", plot='" + Plot + '\'' +
-                ", language='" + Language + '\'' +
-                ", country='" + Country + '\'' +
-                ", awards='" + Awards + '\'' +
-                ", poster='" + Poster + '\'' +
-                ", ratings=" + ratings +
-                ", metascore='" + metascore + '\'' +
-                ", imdbRating='" + imdbRating + '\'' +
-                ", imdbVotes='" + imdbVotes + '\'' +
-                ", imdbID='" + imdbID + '\'' +
-                ", type='" + type + '\'' +
-                ", dVD='" + dVD + '\'' +
-                ", boxOffice='" + BoxOffice + '\'' +
-                ", production='" + production + '\'' +
-                ", website='" + website + '\'' +
-                ", response='" + response + '\'' +
-                '}';
-    }
-
     public String getTitle() {
         return Title;
     }

@@ -17,6 +17,7 @@ public class SharedSecret {
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         */
+
         //REMOVE BEFORE PRODUCTION
         if(true){
             return "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".getBytes();

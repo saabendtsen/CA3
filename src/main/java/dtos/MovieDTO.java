@@ -9,6 +9,7 @@ public class MovieDTO {
     private String movieName;
     private List<String> placersToWatch;
     private String year;
+    private String poster;
     private String genre;
     private String rated;
     private String runtime;
@@ -54,6 +55,10 @@ public class MovieDTO {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
     public String getGenre() {
