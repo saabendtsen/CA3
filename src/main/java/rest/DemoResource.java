@@ -5,33 +5,30 @@ import com.google.gson.GsonBuilder;
 import dtos.UserDTO;
 import entities.Role;
 import entities.User;
-
-import java.io.IOException;
-import java.util.List;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.SecurityContext;
-
 import entities.WatchList;
 import facades.UserFacade;
 import utils.EMF_Creator;
 import utils.HttpUtils;
 
-@Path("info")
+import javax.annotation.security.RolesAllowed;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.UriInfo;
+import java.io.IOException;
+
+@Path("/info")
 public class DemoResource {
-    
+
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
+
     @Context
     private UriInfo context;
     private UserFacade facade = UserFacade.getUserFacade(EMF);
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
 
     @Context
     SecurityContext securityContext;
@@ -46,7 +43,7 @@ public class DemoResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("createusers")
-    public void createUsers() {
+    public String createUsers() {
 
         EntityManager em = EMF.createEntityManager();
 
@@ -75,14 +72,13 @@ public class DemoResource {
             em.persist(watchList);
             em.persist(watchList1);
             em.getTransaction().commit();
-            System.out.println("Users Created!");
-        } catch (Exception e){
-            System.out.println(e.getMessage());
+            return "Users Created!";
+        } catch (Exception e) {
+            return e.getMessage();
         } finally {
-        em.close();
+            em.close();
+        }
     }
-    }
-
 
 
     @GET
@@ -112,7 +108,7 @@ public class DemoResource {
         if (securityContext.isUserInRole("user")) {
             thisuserrole = "user";
         }
-        return "{\"msg\": \"Hello: " + thisuser +  "   -   Role: " + thisuserrole +"\"}";
+        return "{\"msg\": \"Hello: " + thisuser + "   -   Role: " + thisuserrole + "\"}";
     }
 
     @GET
@@ -124,7 +120,7 @@ public class DemoResource {
         if (securityContext.isUserInRole("admin")) {
             thisuserrole = "admin";
         }
-        return "{\"msg\": \"Hello: " + thisuser +  "   -   Role: " + thisuserrole +"\"}";
+        return "{\"msg\": \"Hello: " + thisuser + "   -   Role: " + thisuserrole + "\"}";
     }
 
     @POST
@@ -145,7 +141,7 @@ public class DemoResource {
     @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteUser(@PathParam("name")String name){
+    public String deleteUser(@PathParam("name") String name) {
         UserDTO userDTO = facade.deleteUser(name);
 
         return "Deleted user " + gson.toJson(userDTO);
