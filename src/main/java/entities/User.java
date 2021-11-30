@@ -3,14 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -41,7 +34,8 @@ public class User implements Serializable {
   @JoinTable(name = "user_watchlist", joinColumns = {
           @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
           @JoinColumn(name = "watchlater_imdb_id", referencedColumnName = "watchlater_imdb_id")})
-  @ManyToMany
+
+  @OneToMany
   private List<WatchList> watchList = new ArrayList<>();
 
   public List<String> getRolesAsStrings() {
@@ -102,4 +96,12 @@ public class User implements Serializable {
     roleList.add(userRole);
   }
 
+  public List<WatchList> getWatchList() {
+    return watchList;
+  }
+
+  public void addToWatchList(WatchList watchList) {
+    this.watchList.add(watchList);
+
+  }
 }
