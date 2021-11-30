@@ -57,7 +57,7 @@ public class MovieResource {
     @GET
     @Path("like")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getLikedMovies(){
+    public String getLikedMovies() throws Exception {
         List<MovieDTO> movieDTOList = facade.getTopLikedList();
         return gson.toJson(movieDTOList);
     }

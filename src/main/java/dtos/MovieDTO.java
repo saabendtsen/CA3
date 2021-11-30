@@ -8,6 +8,7 @@ public class MovieDTO {
     private String id;
     private String movieName;
     private List<String> placersToWatch;
+
     private String year;
     private String poster;
     private String genre;
@@ -23,6 +24,9 @@ public class MovieDTO {
         this.placersToWatch = placersToWatch;
     }
 
+    public MovieDTO(String imdbId) {
+        this.id = imdbId;
+    }
 
 
     public String getId() {
@@ -99,5 +103,9 @@ public class MovieDTO {
 
     public void setBoxOffices(String boxOffices) {
         this.boxOffices = boxOffices;
+    }
+
+    public void addPlacesToWatch(String location){
+        this.placersToWatch.add(location);
     }
 }
