@@ -1,11 +1,13 @@
 package facades;
 
+import dtos.MovieDTO;
 import entities.MovieLikes;
 import entities.User;
 import entities.WatchList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
 public class MovieFacade {
 
@@ -77,14 +79,21 @@ public class MovieFacade {
         }
     }
 
+    public List<MovieDTO> getWatchLaterList(String username){
+        EntityManager em = emf.createEntityManager();
+
+        try{
+            em.getTransaction().begin();
+            User user = em.find(User.class, username);
+
+
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
     }
 
-
-
-
-
-
-
-
-
 }
+
+
