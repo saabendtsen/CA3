@@ -1,14 +1,11 @@
 package facades;
 
-import com.sun.tools.javac.comp.Todo;
 import entities.MovieLikes;
-import entities.RenameMe;
 import entities.User;
+import entities.WatchList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 public class MovieFacade {
 
@@ -51,22 +48,18 @@ public class MovieFacade {
     }
 
 
-    public String addWatchLater(String username, String id){
+    public void addWatchLater(String username, String id) {
         EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
-            User user = em.find(User.class,username);
-            //user.addWatchLater(id)
-
+            User user = em.find(User.class, username);
+            user.addToWatchList(new WatchList(id));
             em.merge(user);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-
-        return null;
-
     }
 
 

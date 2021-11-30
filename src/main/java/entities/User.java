@@ -35,7 +35,7 @@ public class User implements Serializable {
           @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
           @JoinColumn(name = "watchlater_imdb_id", referencedColumnName = "watchlater_imdb_id")})
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.PERSIST,mappedBy = "user")
   private List<WatchList> watchList = new ArrayList<>();
 
   public List<String> getRolesAsStrings() {
@@ -101,7 +101,10 @@ public class User implements Serializable {
   }
 
   public void addToWatchList(WatchList watchList) {
-    this.watchList.add(watchList);
+    if(watchList != null){
+      watchList.setUser(this);
+      this.watchList.add(watchList);
 
+    }
   }
 }

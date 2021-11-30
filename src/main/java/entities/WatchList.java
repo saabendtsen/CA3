@@ -8,18 +8,20 @@ import java.util.List;
 @Entity
 public class WatchList {
     @Id
-    @Column(name = "imdbId", nullable = false)
+    @Column(name = "Id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    private String imdbid;
 
     @ManyToOne
     private User user;
 
     public WatchList(){}
 
-    public WatchList(int id) {
-        this.id = id;
+    public WatchList(String imdbid) {
+        this.imdbid = imdbid;
     }
-
 
     public int getId() {
         return id;
@@ -27,6 +29,14 @@ public class WatchList {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getImdbid() {
+        return imdbid;
+    }
+
+    public void setImdbid(String imdbid) {
+        this.imdbid = imdbid;
     }
 
     public User getUser() {
