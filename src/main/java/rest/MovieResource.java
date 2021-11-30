@@ -6,6 +6,7 @@ import datamappers.MovieMapper;
 import dtos.AddInfoDTO;
 import dtos.ImdbResponseDTO;
 import dtos.MovieDTO;
+import facades.MovieFacade;
 import facades.UserFacade;
 import security.HttpClient;
 import utils.EMF_Creator;
@@ -23,7 +24,7 @@ public class MovieResource {
 
     @Context
     private UriInfo context;
-    private UserFacade facade = UserFacade.getUserFacade(EMF);
+    private MovieFacade facade = MovieFacade.getMovieFacade(EMF);
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     @Context
     SecurityContext securityContext;
@@ -50,18 +51,7 @@ public class MovieResource {
     @Path("like/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String addLikeMovie(@PathParam("id") String id){
-        String thisuser = securityContext.getUserPrincipal().getName();
-
-
-        return null;
-    }
-
-    @DELETE
-    @Path("like/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String deleteLikeMovie(@PathParam("id") String id){
-        String thisuser = securityContext.getUserPrincipal().getName();
-
+        facade.addlikeToMovie(id);
 
         return null;
     }
