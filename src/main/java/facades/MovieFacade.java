@@ -8,6 +8,7 @@ import entities.WatchList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,5 +102,28 @@ public class MovieFacade {
         }
         return movieDTOList;
     }
+
+    public List<MovieDTO> getTopLikedList(){
+        EntityManager em = emf.createEntityManager();
+        List<MovieDTO> movieDTOList = new ArrayList<>();
+        MovieMapper movieMapper = new MovieMapper();
+        List<MovieLikes> movieLikes;
+
+        try{
+            em.getTransaction().begin();
+            // TODO: 11/30/2021 Selecet statement should be TOP 10
+            TypedQuery<MovieLikes> query = em.createQuery("select m from MovieLikes m order by m.quantity DESC",MovieLikes.class);
+            query.setMaxResults(10);
+            movieLikes = query.getResultList();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        for(MovieLikes m : movieLikes) {
+            movieDTOList.add(movieMapper.getMovieById(m.getImdbId()));
+        }
+        return movieDTOList;
+    }
+
 
 }
