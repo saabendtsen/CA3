@@ -28,7 +28,7 @@ public class MovieMapper {
         return list;
     }
     
-    public List<MovieDTO> getMovieById(String id){
+    public MovieDTO getMovieById(String id){
 
         // TODO: 11/30/2021 needs to be implemented 
         return null;

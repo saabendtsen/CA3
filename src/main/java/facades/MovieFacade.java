@@ -1,5 +1,6 @@
 package facades;
 
+import datamappers.MovieMapper;
 import dtos.MovieDTO;
 import entities.MovieLikes;
 import entities.User;
@@ -7,6 +8,7 @@ import entities.WatchList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieFacade {
@@ -71,7 +73,7 @@ public class MovieFacade {
         try {
             em.getTransaction().begin();
             User user = em.find(User.class, username);
-            user.getWatchList().removeIf(w -> w.getImdbid().equals(id));
+            user.getWatchList().removeIf(w -> w.getWatchLaterImdbId().equals(id));
             em.merge(user);
             em.getTransaction().commit();
         } finally {
@@ -81,17 +83,22 @@ public class MovieFacade {
 
     public List<MovieDTO> getWatchLaterList(String username){
         EntityManager em = emf.createEntityManager();
+        List<MovieDTO> movieDTOList = new ArrayList<>();
+        MovieMapper movieMapper = new MovieMapper();
+        User user;
 
         try{
             em.getTransaction().begin();
-            User user = em.find(User.class, username);
-
-
+            user = em.find(User.class, username);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
 
+        for(WatchList w : user.getWatchList()){
+            movieDTOList.add(movieMapper.getMovieById(w.getWatchLaterImdbId()));
+        }
+        return movieDTOList;
     }
 
 }
