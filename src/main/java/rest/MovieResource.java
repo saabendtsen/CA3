@@ -67,7 +67,7 @@ public class MovieResource {
     @GET
     @Path("watchLater")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getWatchLater(){
+    public String getWatchLater() throws Exception {
         String thisuser = securityContext.getUserPrincipal().getName();
         List<MovieDTO> movieDTOList = facade.getWatchLaterList(thisuser);
         return gson.toJson(movieDTOList);
