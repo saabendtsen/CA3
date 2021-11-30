@@ -1,14 +1,10 @@
 package facades;
 
-import com.sun.tools.javac.comp.Todo;
 import entities.MovieLikes;
-import entities.RenameMe;
 import entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 public class MovieFacade {
 
