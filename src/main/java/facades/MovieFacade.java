@@ -14,12 +14,12 @@ public class MovieFacade {
     private static MovieFacade facade;
 
 
-    private MovieFacade(){
+    private MovieFacade() {
     }
 
 
-    public static MovieFacade getMovieFacade(EntityManagerFactory _emf){
-        if (facade == null){
+    public static MovieFacade getMovieFacade(EntityManagerFactory _emf) {
+        if (facade == null) {
             emf = _emf;
             facade = new MovieFacade();
         }
@@ -27,14 +27,14 @@ public class MovieFacade {
     }
 
 
-    public MovieLikes addlikeToMovie(String id){
+    public MovieLikes addlikeToMovie(String id) {
         EntityManager em = emf.createEntityManager();
         MovieLikes like;
         try {
             em.getTransaction().begin();
-            like = em.find(MovieLikes.class,id);
+            like = em.find(MovieLikes.class, id);
 
-            if(like == null){
+            if (like == null) {
                 em.persist(like);
             } else {
                 like.setQuantity(like.getQuantity() + 1);
@@ -63,28 +63,17 @@ public class MovieFacade {
     }
 
 
-    public void deleteWatchLater(String username, String id){
+    public void deleteWatchLater(String username, String id) {
         EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
             User user = em.find(User.class, username);
-            user.getWatchList().removeIf(w -> w.getImdbid().equals(id));
+            user.getWatchList().removeIf(w -> w.getWatchLaterImdbId().equals(id));
             em.merge(user);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
     }
-
-    }
-
-
-
-
-
-
-
-
-
 }

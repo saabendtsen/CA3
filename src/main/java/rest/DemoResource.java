@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.UserDTO;
+import entities.Role;
 import entities.User;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 
+import entities.WatchList;
 import facades.UserFacade;
 import utils.EMF_Creator;
 import utils.HttpUtils;
@@ -40,20 +42,45 @@ public class DemoResource {
         return "{\"msg\":\"Hello anonymous\"}";
     }
 
-    //Just to verify if the database is setup
+    //Create Users on Endpoint
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("all")
-    public String allUsers() {
+    @Path("createusers")
+    public void createUsers() {
 
         EntityManager em = EMF.createEntityManager();
+
+        User user = new User("user", "user1");
+        User user1 = new User("user1", "user1");
+        User admin = new User("admin", "admin1");
+
+
         try {
-            TypedQuery<User> query = em.createQuery ("select u from User u",entities.User.class);
-            List<User> users = query.getResultList();
-            return "[" + users.size() + "]";
+            em.getTransaction().begin();
+            Role userRole = new Role("user");
+            Role adminRole = new Role("admin");
+            user.addRole(userRole);
+            user1.addRole(userRole);
+            admin.addRole(adminRole);
+            WatchList watchList = new WatchList("tt4972582"); // Split
+            WatchList watchList1 = new WatchList("tt4972583"); // idk
+            user.addToWatchList(watchList);
+            user1.addToWatchList(watchList);
+            user1.addToWatchList(watchList1);
+            em.persist(userRole);
+            em.persist(adminRole);
+            em.persist(user);
+            em.persist(user1);
+            em.persist(admin);
+            em.persist(watchList);
+            em.persist(watchList1);
+            em.getTransaction().commit();
+            System.out.println("Users Created!");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         } finally {
-            em.close();
-        }
+        em.close();
+    }
     }
 
 

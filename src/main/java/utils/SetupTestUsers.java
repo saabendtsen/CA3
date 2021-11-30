@@ -11,13 +11,11 @@ import javax.persistence.EntityManagerFactory;
 public class SetupTestUsers {
 
   public static void main(String[] args) {
-
     EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
     EntityManager em = emf.createEntityManager();
 
     User user = new User("user", "user1");
     User user1 = new User("user1", "user1");
-
     User admin = new User("admin", "admin1");
 
 
