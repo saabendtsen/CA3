@@ -31,18 +31,58 @@ public class MovieResource {
     @GET
     @Path("title/{title}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getTitle(@PathParam("title")String title) throws Exception {
+    public String getTitle(@PathParam("title") String title) throws Exception {
         security.HttpClient obj = new HttpClient();
         String response = "";
         try {
-            response = obj.sendGet(title,false);
+            response = obj.sendGet(title, false);
         } finally {
             obj.close();
         }
         ImdbResponseDTO dto = gson.fromJson(response, ImdbResponseDTO.class);
 
-
-//        return gson.toJson(dto.toString())
         return gson.toJson(movieMapper.getMovie(dto));
     }
+
+
+    @POST
+    @Path("like/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addLikeMovie(@PathParam("id") String id){
+        String thisuser = securityContext.getUserPrincipal().getName();
+
+
+        return null;
+    }
+
+    @DELETE
+    @Path("like/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteLikeMovie(@PathParam("id") String id){
+        String thisuser = securityContext.getUserPrincipal().getName();
+
+
+        return null;
+    }
+
+    @POST
+    @Path("watchLater/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addWatchLater(@PathParam("id") String id){
+        String thisuser = securityContext.getUserPrincipal().getName();
+
+
+        return null;
+    }
+
+    @DELETE
+    @Path("watchLater/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteWatchLater(@PathParam("id") String id){
+        String thisuser = securityContext.getUserPrincipal().getName();
+
+
+        return null;
+    }
+
 }
