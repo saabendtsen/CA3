@@ -107,20 +107,20 @@ public class MovieFacade {
         EntityManager em = emf.createEntityManager();
         List<MovieDTO> movieDTOList = new ArrayList<>();
         MovieMapper movieMapper = new MovieMapper();
-        List<WatchList> watchLists;
+        List<MovieLikes> movieLikes;
 
         try{
             em.getTransaction().begin();
             // TODO: 11/30/2021 Selecet statement should be TOP 10
-            TypedQuery<WatchList> query = em.createQuery("select w from WatchList w ",WatchList.class);
-            watchLists = query.getResultList();
+            TypedQuery<MovieLikes> query = em.createQuery("select m from MovieLikes m order by m.quantity DESC",MovieLikes.class);
+            query.setMaxResults(10);
+            movieLikes = query.getResultList();
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-
-        for(WatchList w : watchLists) {
-            movieDTOList.add(movieMapper.getMovieById(w.getWatchLaterImdbId()));
+        for(MovieLikes m : movieLikes) {
+            movieDTOList.add(movieMapper.getMovieById(m.getImdbId()));
         }
         return movieDTOList;
     }
