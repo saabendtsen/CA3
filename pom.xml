@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dat.sem3</groupId>
-    <artifactId>CA3_Semester_Project</artifactId>
-    <version>1.0.0</version>
+    <artifactId>CA3</artifactId>
+    <version>1.0</version>
     <packaging>war</packaging>
 
     <name>CA3_Semester_Project</name>

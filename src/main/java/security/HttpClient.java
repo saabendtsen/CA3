@@ -30,10 +30,10 @@ public class HttpClient {
 
         if(isID){
             request = new HttpGet("https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&i=" + search );
-            System.out.println(search);
+
 
         } else {
-            System.out.println(search);
+
             request = new HttpGet("https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%22" + search + "&country=us");
         }
         // request headers

@@ -36,7 +36,6 @@ public class MovieResource {
         security.HttpClient obj = new HttpClient();
         String response;
         title = title.replace(" ","%20");
-        System.out.println(title);
         try {
             response = obj.sendGet(title, false);
         } finally {
