@@ -52,7 +52,6 @@ public class MovieResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String addLikeMovie(@PathParam("id") String id){
         facade.addlikeToMovie(id);
-
         return null;
     }
 
@@ -60,9 +59,8 @@ public class MovieResource {
     @Path("like")
     @Produces(MediaType.APPLICATION_JSON)
     public String getLikedMovies(){
-
-
-        return null;
+        List<MovieDTO> movieDTOList = facade.getTopLikedList();
+        return gson.toJson(movieDTOList);
     }
 
 
