@@ -2,14 +2,14 @@ package entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Table(name = "watch_list")
 @Entity
 public class WatchList {
+
     @Id
-    @Column(name = "Id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private int id;
 
     private String imdbid;
@@ -17,7 +17,8 @@ public class WatchList {
     @ManyToOne
     private User user;
 
-    public WatchList(){}
+    public WatchList() {
+    }
 
     public WatchList(String imdbid) {
         this.imdbid = imdbid;
