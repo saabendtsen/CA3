@@ -33,14 +33,15 @@ public class MovieResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getTitle(@PathParam("title") String title) throws Exception {
         security.HttpClient obj = new HttpClient();
-        String response = "";
+        String response;
+        title = title.replace(" ","%20");
+        System.out.println(title);
         try {
             response = obj.sendGet(title, false);
         } finally {
             obj.close();
         }
         ImdbResponseDTO dto = gson.fromJson(response, ImdbResponseDTO.class);
-
         return gson.toJson(movieMapper.getMovie(dto));
     }
 

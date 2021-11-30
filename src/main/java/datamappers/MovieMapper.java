@@ -37,6 +37,7 @@ public class MovieMapper {
             dto.setRated(addInfoDTO.getRated());
             dto.setRuntime(addInfoDTO.getRuntime());
             dto.setImdbRating(addInfoDTO.getImdbRating());
+            dto.setPoster(addInfoDTO.getPoster());
             dto.setBoxOffices(addInfoDTO.getBoxOffice());
         }
         return list;
