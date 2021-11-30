@@ -56,6 +56,26 @@ public class MovieResource {
         return null;
     }
 
+    @GET
+    @Path("like")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getLikedMovies(){
+
+
+        return null;
+    }
+
+
+
+    @GET
+    @Path("watchLater")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getWatchLater(){
+        String thisuser = securityContext.getUserPrincipal().getName();
+
+        return null;
+    }
+
     @POST
     @Path("watchLater/{id}")
     @Produces(MediaType.APPLICATION_JSON)
