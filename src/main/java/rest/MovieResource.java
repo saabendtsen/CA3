@@ -72,8 +72,8 @@ public class MovieResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getWatchLater(){
         String thisuser = securityContext.getUserPrincipal().getName();
-
-        return null;
+        List<MovieDTO> movieDTOList = facade.getWatchLaterList(thisuser);
+        return gson.toJson(movieDTOList);
     }
 
     @POST
@@ -81,8 +81,7 @@ public class MovieResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String addWatchLater(@PathParam("id") String id){
         String thisuser = securityContext.getUserPrincipal().getName();
-
-
+        facade.addWatchLater(thisuser,id);
         return null;
     }
 
@@ -91,8 +90,7 @@ public class MovieResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteWatchLater(@PathParam("id") String id){
         String thisuser = securityContext.getUserPrincipal().getName();
-
-
+        facade.deleteWatchLater(thisuser,id);
         return null;
     }
 

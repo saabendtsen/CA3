@@ -27,6 +27,12 @@ public class MovieMapper {
 
         return list;
     }
+    
+    public MovieDTO getMovieById(String id){
+
+        // TODO: 11/30/2021 needs to be implemented 
+        return null;
+    }
 
     public List<MovieDTO> addInfo (List<MovieDTO> list) throws Exception {
         for (MovieDTO dto : list){
@@ -58,4 +64,6 @@ public class MovieMapper {
 
         return gson.fromJson(response, AddInfoDTO.class);
     }
+    
+    
 }
