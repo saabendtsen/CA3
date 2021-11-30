@@ -16,6 +16,16 @@ public class MovieLikes {
 
     public MovieLikes()  {}
 
+    public MovieLikes(int id) {
+        this.id = id;
+    }
+
+    public MovieLikes(int id, String imdbId, Long quantity) {
+        this.id = id;
+        this.imdbId = imdbId;
+        this.quantity = quantity;
+    }
+
     public String getImdbId() {
         return imdbId;
     }

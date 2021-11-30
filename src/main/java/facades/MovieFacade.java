@@ -30,19 +30,24 @@ public class MovieFacade {
     }
 
 
-    public String addlikeToMovie(String id){
+    public MovieLikes addlikeToMovie(String id){
         EntityManager em = emf.createEntityManager();
-
+        MovieLikes like;
         try {
             em.getTransaction().begin();
-            em.persist();
+            like = em.find(MovieLikes.class,id);
+
+            if(like == null){
+                em.persist(like);
+            } else {
+                like.setQuantity(like.getQuantity() + 1);
+                em.merge(like);
+            }
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-
-        return null;
-
+        return like;
     }
 
 
