@@ -19,7 +19,7 @@ public class SetupTestUsers {
     User user1 = new User("user1", "user1");
 
     User admin = new User("admin", "admin1");
-    WatchList watchList = new WatchList("TT2131231231");
+
 
     try {
       em.getTransaction().begin();
@@ -28,13 +28,18 @@ public class SetupTestUsers {
       user.addRole(userRole);
       user1.addRole(userRole);
       admin.addRole(adminRole);
+      WatchList watchList = new WatchList("tt4972582"); // Split
+      WatchList watchList1 = new WatchList("tt4972583"); // idk
       user.addToWatchList(watchList);
       user1.addToWatchList(watchList);
+      user1.addToWatchList(watchList1);
       em.persist(userRole);
       em.persist(adminRole);
       em.persist(user);
       em.persist(user1);
       em.persist(admin);
+      em.persist(watchList);
+      em.persist(watchList1);
       em.getTransaction().commit();
       System.out.println("Users Created!");
     } catch (Exception e){

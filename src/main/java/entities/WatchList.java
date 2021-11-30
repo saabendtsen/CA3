@@ -2,49 +2,43 @@ package entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Table(name = "watch_list")
 @Entity
 public class WatchList {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @NotNull
-    private int id;
+    @Column(name = "watchlater_imdb_id")
+    private String watchLaterImdbId;
 
-    private String imdbid;
+    @ManyToMany(mappedBy = "watchList")
+    private List<User> userList;
 
-    @ManyToOne
-    private User user;
+    public WatchList(){
 
-    public WatchList() {
     }
 
-    public WatchList(String imdbid) {
-        this.imdbid = imdbid;
+    public WatchList(String watchLaterImdbId) {
+        this.watchLaterImdbId = watchLaterImdbId;
     }
 
-    public int getId() {
-        return id;
+    public String getWatchLaterImdbId() {
+        return watchLaterImdbId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setWatchLaterImdbId(String watchLaterImdbId) {
+        this.watchLaterImdbId = watchLaterImdbId;
     }
 
-    public String getImdbid() {
-        return imdbid;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setImdbid(String imdbid) {
-        this.imdbid = imdbid;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

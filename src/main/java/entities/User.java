@@ -1,14 +1,21 @@
 package entities;
 
-import dtos.UserDTO;
-import org.mindrot.jbcrypt.BCrypt;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import dtos.UserDTO;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
 @Table(name = "users")
@@ -34,8 +41,7 @@ public class User implements Serializable {
   @JoinTable(name = "user_watchlist", joinColumns = {
           @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
           @JoinColumn(name = "watchlater_imdb_id", referencedColumnName = "watchlater_imdb_id")})
-
-  @OneToMany(cascade = CascadeType.PERSIST,mappedBy = "user")
+  @ManyToMany
   private List<WatchList> watchList = new ArrayList<>();
 
   public List<String> getRolesAsStrings() {
@@ -47,6 +53,17 @@ public class User implements Serializable {
         rolesAsStrings.add(role.getRoleName());
       });
     return rolesAsStrings;
+  }
+
+  public List<String> getWatchListAsString() {
+    if (watchList.isEmpty()) {
+      return null;
+    }
+    List<String> watchlistString = new ArrayList<>();
+    watchList.forEach((watchListAsString) -> {
+      watchlistString.add(watchListAsString.getWatchLaterImdbId());
+    });
+    return watchlistString;
   }
 
   public User() {}
@@ -100,11 +117,12 @@ public class User implements Serializable {
     return watchList;
   }
 
-  public void addToWatchList(WatchList watchList) {
-    if(watchList != null){
-      watchList.setUser(this);
-      this.watchList.add(watchList);
-
-    }
+  public void setWatchList(List<WatchList> watchList) {
+    this.watchList = watchList;
   }
+
+  public void addToWatchList(WatchList watched) {
+    watchList.add(watched);
+  }
+
 }
