@@ -36,7 +36,6 @@ public class MovieResource {
         security.HttpClient obj = new HttpClient();
         String response;
         title = title.replace(" ","%20");
-        System.out.println(title);
         try {
             response = obj.sendGet(title, false);
         } finally {
@@ -58,7 +57,7 @@ public class MovieResource {
     @GET
     @Path("like")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getLikedMovies(){
+    public String getLikedMovies() throws Exception {
         List<MovieDTO> movieDTOList = facade.getTopLikedList();
         return gson.toJson(movieDTOList);
     }

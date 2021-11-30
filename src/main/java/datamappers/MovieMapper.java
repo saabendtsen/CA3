@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import dtos.AddInfoDTO;
 import dtos.ImdbResponseDTO;
 import dtos.MovieDTO;
+import entities.MovieLikes;
+import org.apache.http.client.methods.HttpGet;
 import rest.MovieResource;
 import security.HttpClient;
 
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieMapper {
-
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public List<MovieDTO> getMovie(ImdbResponseDTO imdbResponseDTO) throws Exception {
         List<MovieDTO> list = new ArrayList<>();
@@ -28,16 +30,30 @@ public class MovieMapper {
         return list;
     }
     
-    public MovieDTO getMovieById(String id){
-
-        // TODO: 11/30/2021 needs to be implemented 
-        return null;
+    public List<MovieDTO> getMovieById(List<MovieDTO> movieDTO) throws Exception {
+            List<MovieDTO> movieDTOS = addInfo(movieDTO);
+            ImdbResponseDTO imdbResponseDTO;
+            HttpClient httpClient = new HttpClient();
+        for (MovieDTO m: movieDTOS) {
+            String response = httpClient.sendGet(m.getMovieName(),false);
+            imdbResponseDTO = gson.fromJson(response,ImdbResponseDTO.class);
+            for (ImdbResponseDTO.Result r: imdbResponseDTO.getResults()) {
+                if(r.external_ids.imdb.id.equals(m.getId())){
+                    for(ImdbResponseDTO.Location location: r.locations){
+                        m.addPlacesToWatch(location.display_name);
+                    }
+                }
+            }
+        }
+        return movieDTOS;
     }
 
     public List<MovieDTO> addInfo (List<MovieDTO> list) throws Exception {
         for (MovieDTO dto : list){
             AddInfoDTO addInfoDTO = getAddInfo(dto);
-            System.out.println(addInfoDTO.toString());
+            if(dto.getMovieName() == null){
+                dto.setMovieName(addInfoDTO.getTitle());
+            }
             dto.setYear(addInfoDTO.getYear());
             dto.setGenre(addInfoDTO.getGenre());
             dto.setRated(addInfoDTO.getRated());

@@ -83,7 +83,7 @@ public class MovieFacade {
     }
 
 
-    public List<MovieDTO> getWatchLaterList(String username){
+    public List<MovieDTO> getWatchLaterList(String username) throws Exception {
         EntityManager em = emf.createEntityManager();
         List<MovieDTO> movieDTOList = new ArrayList<>();
         MovieMapper movieMapper = new MovieMapper();
@@ -98,12 +98,15 @@ public class MovieFacade {
         }
 
         for(WatchList w : user.getWatchList()){
-            movieDTOList.add(movieMapper.getMovieById(w.getWatchLaterImdbId()));
+            movieDTOList.add(new MovieDTO(w.getWatchLaterImdbId()));
         }
+
+        movieDTOList = (movieMapper.getMovieById(movieDTOList));
+
         return movieDTOList;
     }
 
-    public List<MovieDTO> getTopLikedList(){
+    public List<MovieDTO> getTopLikedList() throws Exception {
         EntityManager em = emf.createEntityManager();
         List<MovieDTO> movieDTOList = new ArrayList<>();
         MovieMapper movieMapper = new MovieMapper();
@@ -119,9 +122,13 @@ public class MovieFacade {
         } finally {
             em.close();
         }
-        for(MovieLikes m : movieLikes) {
-            movieDTOList.add(movieMapper.getMovieById(m.getImdbId()));
+        for (MovieLikes m: movieLikes) {
+            movieDTOList.add(new MovieDTO(m.getImdbId()));
         }
+            movieDTOList = movieMapper.getMovieById(movieDTOList);
+
+
+
         return movieDTOList;
     }
 
