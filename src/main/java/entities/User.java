@@ -38,6 +38,12 @@ public class User implements Serializable {
   @ManyToMany
   private List<Role> roleList = new ArrayList<>();
 
+  @JoinTable(name = "user_watchlist", joinColumns = {
+          @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+          @JoinColumn(name = "watchlater_imdb_id", referencedColumnName = "watchlater_imdb_id")})
+  @ManyToMany
+  private List<WatchList> watchList = new ArrayList<>();
+
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
       return null;
