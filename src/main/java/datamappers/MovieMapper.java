@@ -36,6 +36,7 @@ public class MovieMapper {
             HttpClient httpClient = new HttpClient();
         for (MovieDTO m: movieDTOS) {
             String response = httpClient.sendGet(m.getMovieName(),false);
+            System.out.println(response);
             imdbResponseDTO = gson.fromJson(response,ImdbResponseDTO.class);
             for (ImdbResponseDTO.Result r: imdbResponseDTO.getResults()) {
                 if(r.external_ids.imdb.id.equals(m.getId())){

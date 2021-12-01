@@ -1,5 +1,6 @@
 package dtos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDTO {
@@ -106,6 +107,9 @@ public class MovieDTO {
     }
 
     public void addPlacesToWatch(String location){
+        if(this.placersToWatch == null){
+            this.placersToWatch = new ArrayList<>();
+        }
         this.placersToWatch.add(location);
     }
 }

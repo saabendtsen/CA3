@@ -74,7 +74,8 @@ public class MovieResource {
     @Path("watchLater/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String addWatchLater(@PathParam("id") String id){
-        String thisuser = securityContext.getUserPrincipal().getName();
+//        String thisuser = securityContext.getUserPrincipal().getName();
+        String thisuser = "user1";
         return gson.toJson(facade.addWatchLater(thisuser,id));
     }
 
