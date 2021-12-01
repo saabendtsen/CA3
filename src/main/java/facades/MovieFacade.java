@@ -40,7 +40,9 @@ public class MovieFacade {
             like = em.find(MovieLikes.class, id);
 
             if (like == null) {
-                em.persist(like);
+                MovieLikes movieLikes = new MovieLikes(id,1L);
+                em.persist(movieLikes);
+                like = movieLikes;
             } else {
                 like.setQuantity(like.getQuantity() + 1);
                 em.merge(like);

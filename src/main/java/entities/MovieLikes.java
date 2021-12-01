@@ -6,22 +6,15 @@ import javax.persistence.*;
 @Entity
 public class MovieLikes {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private int id;
-    @Column(name = "imdbId", nullable = false, unique = true)
+    @Basic(optional = false)
+    @Column(name = "imdbId", nullable = false)
     private String imdbId;
     @Column(name = "quantity", nullable = false)
     private Long quantity;
 
     public MovieLikes()  {}
 
-    public MovieLikes(int id) {
-        this.id = id;
-    }
-
-    public MovieLikes(int id, String imdbId, Long quantity) {
-        this.id = id;
+    public MovieLikes( String imdbId, Long quantity) {
         this.imdbId = imdbId;
         this.quantity = quantity;
     }
@@ -40,13 +33,5 @@ public class MovieLikes {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

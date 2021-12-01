@@ -50,8 +50,7 @@ public class MovieResource {
     @Path("like/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String addLikeMovie(@PathParam("id") String id){
-        facade.addlikeToMovie(id);
-        return null;
+        return gson.toJson(facade.addlikeToMovie(id));
     }
 
     @GET
