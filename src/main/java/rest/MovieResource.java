@@ -12,6 +12,7 @@ import facades.UserFacade;
 import security.HttpClient;
 import utils.EMF_Creator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -48,6 +49,7 @@ public class MovieResource {
 
     @POST
     @Path("like/{id}")
+    //@RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
     public String addLikeMovie(@PathParam("id") String id){
         return gson.toJson(facade.addlikeToMovie(id));
@@ -55,6 +57,7 @@ public class MovieResource {
 
     @GET
     @Path("like")
+    //@RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
     public String getLikedMovies() throws Exception {
         List<MovieDTO> movieDTOList = facade.getTopLikedList();
@@ -63,6 +66,7 @@ public class MovieResource {
 
     @GET
     @Path("watchLater")
+    //@RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
     public String getWatchLater() throws Exception {
 //        String thisuser = securityContext.getUserPrincipal().getName();
@@ -72,6 +76,7 @@ public class MovieResource {
 
     @POST
     @Path("watchLater/{id}")
+    //@RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
     public String addWatchLater(@PathParam("id") String id){
 //        String thisuser = securityContext.getUserPrincipal().getName();
@@ -81,6 +86,7 @@ public class MovieResource {
 
     @DELETE
     @Path("watchLater/{id}")
+    //@RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteWatchLater(@PathParam("id") String id){
 //        String thisuser = securityContext.getUserPrincipal().getName();
