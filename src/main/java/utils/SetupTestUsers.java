@@ -27,7 +27,7 @@ public class SetupTestUsers {
       user1.addRole(userRole);
       admin.addRole(adminRole);
       WatchList watchList = new WatchList("tt4972582"); // Split
-      WatchList watchList1 = new WatchList("tt4972583"); // idk
+      WatchList watchList1 = new WatchList("tt4972586"); // idk
       user.addToWatchList(watchList);
       user1.addToWatchList(watchList);
       user1.addToWatchList(watchList1);

@@ -6,6 +6,7 @@ import datamappers.MovieMapper;
 import dtos.AddInfoDTO;
 import dtos.ImdbResponseDTO;
 import dtos.MovieDTO;
+import entities.User;
 import facades.MovieFacade;
 import facades.UserFacade;
 import security.HttpClient;
@@ -35,7 +36,6 @@ public class MovieResource {
     public String getTitle(@PathParam("title") String title) throws Exception {
         security.HttpClient obj = new HttpClient();
         String response;
-        title = title.replace(" ","%20");
         try {
             response = obj.sendGet(title, false);
         } finally {
@@ -61,14 +61,12 @@ public class MovieResource {
         return gson.toJson(movieDTOList);
     }
 
-
-
     @GET
     @Path("watchLater")
     @Produces(MediaType.APPLICATION_JSON)
     public String getWatchLater() throws Exception {
-        String thisuser = securityContext.getUserPrincipal().getName();
-        List<MovieDTO> movieDTOList = facade.getWatchLaterList(thisuser);
+//        String thisuser = securityContext.getUserPrincipal().getName();
+        List<MovieDTO> movieDTOList = facade.getWatchLaterList("user1");
         return gson.toJson(movieDTOList);
     }
 
@@ -77,17 +75,16 @@ public class MovieResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String addWatchLater(@PathParam("id") String id){
         String thisuser = securityContext.getUserPrincipal().getName();
-        facade.addWatchLater(thisuser,id);
-        return null;
+        return gson.toJson(facade.addWatchLater(thisuser,id));
     }
 
     @DELETE
     @Path("watchLater/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteWatchLater(@PathParam("id") String id){
-        String thisuser = securityContext.getUserPrincipal().getName();
-        facade.deleteWatchLater(thisuser,id);
-        return null;
+//        String thisuser = securityContext.getUserPrincipal().getName();
+
+        return gson.toJson(facade.deleteWatchLater(id));
     }
 
 }

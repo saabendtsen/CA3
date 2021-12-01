@@ -40,7 +40,7 @@ public class MovieFacade {
             like = em.find(MovieLikes.class, id);
 
             if (like == null) {
-                MovieLikes movieLikes = new MovieLikes(id,1L);
+                MovieLikes movieLikes = new MovieLikes(id, 1L);
                 em.persist(movieLikes);
                 like = movieLikes;
             } else {
@@ -55,7 +55,7 @@ public class MovieFacade {
     }
 
 
-    public void addWatchLater(String username, String id) {
+    public String addWatchLater(String username, String id) {
         EntityManager em = emf.createEntityManager();
 
         try {
@@ -67,21 +67,23 @@ public class MovieFacade {
         } finally {
             em.close();
         }
+        return "added ";
     }
 
 
-    public void deleteWatchLater(String username, String id) {
+    public String deleteWatchLater(String id) {
         EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
-            User user = em.find(User.class, username);
+            User user = em.find(User.class, "user");
             user.getWatchList().removeIf(w -> w.getWatchLaterImdbId().equals(id));
             em.merge(user);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
+        return "Deleted!";
     }
 
 
@@ -91,7 +93,7 @@ public class MovieFacade {
         MovieMapper movieMapper = new MovieMapper();
         User user;
 
-        try{
+        try {
             em.getTransaction().begin();
             user = em.find(User.class, username);
             em.getTransaction().commit();
@@ -99,7 +101,7 @@ public class MovieFacade {
             em.close();
         }
 
-        for(WatchList w : user.getWatchList()){
+        for (WatchList w : user.getWatchList()) {
             movieDTOList.add(new MovieDTO(w.getWatchLaterImdbId()));
         }
 
@@ -114,22 +116,20 @@ public class MovieFacade {
         MovieMapper movieMapper = new MovieMapper();
         List<MovieLikes> movieLikes;
 
-        try{
+        try {
             em.getTransaction().begin();
             // TODO: 11/30/2021 Selecet statement should be TOP 10
-            TypedQuery<MovieLikes> query = em.createQuery("select m from MovieLikes m order by m.quantity DESC",MovieLikes.class);
+            TypedQuery<MovieLikes> query = em.createQuery("select m from MovieLikes m order by m.quantity DESC", MovieLikes.class);
             query.setMaxResults(10);
             movieLikes = query.getResultList();
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-        for (MovieLikes m: movieLikes) {
+        for (MovieLikes m : movieLikes) {
             movieDTOList.add(new MovieDTO(m.getImdbId()));
         }
-            movieDTOList = movieMapper.getMovieById(movieDTOList);
-
-
+        movieDTOList = movieMapper.getMovieById(movieDTOList);
 
         return movieDTOList;
     }

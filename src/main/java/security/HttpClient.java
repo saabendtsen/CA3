@@ -27,7 +27,7 @@ public class HttpClient {
     public String sendGet(String search, Boolean isID) throws Exception {
         String res = gson.toJson("NotFound : Movie not Found!");
         HttpGet request;
-
+        search = search.replace(" ","%20");
         if (isID) {
             request = new HttpGet("https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&i=" + search);
         } else {
