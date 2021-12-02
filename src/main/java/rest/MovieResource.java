@@ -74,6 +74,7 @@ public class MovieResource {
         return gson.toJson(movieDTOList);
     }
 
+
     @POST
     @Path("watchLater/{id}")
     //@RolesAllowed("user")
