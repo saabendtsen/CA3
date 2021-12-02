@@ -13,6 +13,7 @@ import security.HttpClient;
 import utils.EMF_Creator;
 
 import javax.annotation.security.RolesAllowed;
+import javax.faces.component.html.HtmlOutputFormat;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -94,5 +95,7 @@ public class MovieResource {
 
         return gson.toJson(facade.deleteWatchLater(id));
     }
+
+    // TODO: 02-12-2021 Younes - Lav frontend Delete (Watchlater) - tilføj like til forside (liste) og knap til at like på begge sidder (Søgning og watchlater!)
 
 }
