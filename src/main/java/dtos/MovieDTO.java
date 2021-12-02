@@ -50,6 +50,13 @@ public class MovieDTO {
         return placersToWatch;
     }
 
+    @Override
+    public String toString() {
+        return "MovieDTO{" +
+                "placersToWatch=" + placersToWatch +
+                '}';
+    }
+
     public void setPlacersToWatch(List<String> placersToWatch) {
         this.placersToWatch = placersToWatch;
     }
