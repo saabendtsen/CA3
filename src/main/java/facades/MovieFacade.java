@@ -117,7 +117,6 @@ public class MovieFacade {
 
         try {
             em.getTransaction().begin();
-            // TODO: 11/30/2021 Selecet statement should be TOP 10
             TypedQuery<MovieLikes> query = em.createQuery("select m from MovieLikes m order by m.quantity DESC", MovieLikes.class);
             query.setMaxResults(10);
             movieLikes = query.getResultList();
