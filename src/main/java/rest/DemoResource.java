@@ -7,6 +7,7 @@ import entities.Role;
 import entities.User;
 import entities.WatchList;
 import facades.UserFacade;
+import utils.AddLikesToDB;
 import utils.EMF_Creator;
 import utils.HttpUtils;
 
@@ -80,6 +81,25 @@ public class DemoResource {
         }
     }
 
+    @GET
+    @Path("createlikes")
+    public String createlikes(){
+       AddLikesToDB a = new AddLikesToDB();
+
+        a.addlikeToMovie("tt0420233",100);
+        a.addlikeToMovie("tt0376606",90);
+        a.addlikeToMovie("tt2092588",80);
+        a.addlikeToMovie("tt7631146",70);
+        a.addlikeToMovie("tt11012066",60);
+        a.addlikeToMovie("tt0486725",50);
+        a.addlikeToMovie("tt3480822",40);
+        a.addlikeToMovie("tt2085059",30);
+        a.addlikeToMovie("tt4154664",20);
+        a.addlikeToMovie("tt7667038",10);
+
+        return "Dummy likes created";
+    }
+
 
     @GET
     @Path("crypto")
@@ -125,11 +145,9 @@ public class DemoResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("admin/createUser")
-    @RolesAllowed("admin")
+    @Path("createUser")
     @Consumes(MediaType.APPLICATION_JSON)
     public String createUser(String newUser) {
-        String thisuser = securityContext.getUserPrincipal().getName();
         UserDTO userDTO = gson.fromJson(newUser, UserDTO.class);
         userDTO = facade.createUser(userDTO);
 

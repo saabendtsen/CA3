@@ -32,6 +32,7 @@ public class HttpClient {
             request = new HttpGet("https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&i=" + search);
         } else {
             request = new HttpGet("https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%22" + search + "&country=us");
+            System.out.println("URL from Http Client" + request);
         }
         // request headers
         request.addHeader("x-rapidapi-key", "7bdff84145msh4480520f958f4ebp1f543fjsnda49759e8066");

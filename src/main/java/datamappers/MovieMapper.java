@@ -35,15 +35,19 @@ public class MovieMapper {
             ImdbResponseDTO imdbResponseDTO;
             HttpClient httpClient = new HttpClient();
         for (MovieDTO m: movieDTOS) {
-            String response = httpClient.sendGet(m.getMovieName(),false);
-            System.out.println(response);
-            imdbResponseDTO = gson.fromJson(response,ImdbResponseDTO.class);
-            for (ImdbResponseDTO.Result r: imdbResponseDTO.getResults()) {
-                if(r.external_ids.imdb.id.equals(m.getId())){
-                    for(ImdbResponseDTO.Location location: r.locations){
-                        m.addPlacesToWatch(location.display_name);
+            String response = httpClient.sendGet(m.getMovieName(), false);
+            System.out.println("here is a response" + response);
+            try {
+                imdbResponseDTO = gson.fromJson(response, ImdbResponseDTO.class);
+                for (ImdbResponseDTO.Result r : imdbResponseDTO.getResults()) {
+                    if (r.external_ids.imdb.id.equals(m.getId())) {
+                        for (ImdbResponseDTO.Location location : r.locations) {
+                            m.addPlacesToWatch(location.display_name);
+                        }
                     }
                 }
+            } catch (Exception e ){
+                System.out.println("sut min dut");
             }
         }
         return movieDTOS;
@@ -74,7 +78,6 @@ public class MovieMapper {
         String response = "";
         try {
             response = obj.sendGet(dto.getId(),true);
-            System.out.println(response);
         } finally {
             obj.close();
         }

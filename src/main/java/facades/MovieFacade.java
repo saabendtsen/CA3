@@ -38,7 +38,6 @@ public class MovieFacade {
         try {
             em.getTransaction().begin();
             like = em.find(MovieLikes.class, id);
-
             if (like == null) {
                 MovieLikes movieLikes = new MovieLikes(id, 1L);
                 em.persist(movieLikes);
