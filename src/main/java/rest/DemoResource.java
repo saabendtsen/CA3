@@ -125,11 +125,9 @@ public class DemoResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("admin/createUser")
-    @RolesAllowed("admin")
+    @Path("createUser")
     @Consumes(MediaType.APPLICATION_JSON)
     public String createUser(String newUser) {
-        String thisuser = securityContext.getUserPrincipal().getName();
         UserDTO userDTO = gson.fromJson(newUser, UserDTO.class);
         userDTO = facade.createUser(userDTO);
 
