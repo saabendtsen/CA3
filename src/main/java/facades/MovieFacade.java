@@ -66,23 +66,23 @@ public class MovieFacade {
         } finally {
             em.close();
         }
-        return "added ";
+        return "added "+ id;
     }
 
 
-    public String deleteWatchLater(String id) {
+    public String deleteWatchLater(String username,String id) {
         EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
-            User user = em.find(User.class, "user");
+            User user = em.find(User.class, username);
             user.getWatchList().removeIf(w -> w.getWatchLaterImdbId().equals(id));
             em.merge(user);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-        return "Deleted!";
+        return "Deleted! " + id;
     }
 
 

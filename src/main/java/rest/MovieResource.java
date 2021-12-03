@@ -50,7 +50,7 @@ public class MovieResource {
 
     @POST
     @Path("like/{id}")
-    //@RolesAllowed("user")
+    @RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
     public String addLikeMovie(@PathParam("id") String id){
         return gson.toJson(facade.addlikeToMovie(id));
@@ -58,7 +58,7 @@ public class MovieResource {
 
     @GET
     @Path("like")
-    //@RolesAllowed("user")
+    @RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
     public String getLikedMovies() throws Exception {
         List<MovieDTO> movieDTOList = facade.getTopLikedList();
@@ -66,36 +66,35 @@ public class MovieResource {
     }
 
     @GET
-    @Path("watchLater")
-    //@RolesAllowed("user")
+    @Path("watchlater")
+    @RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
     public String getWatchLater() throws Exception {
-//        String thisuser = securityContext.getUserPrincipal().getName();
-        List<MovieDTO> movieDTOList = facade.getWatchLaterList("user1");
+        String thisuser = securityContext.getUserPrincipal().getName();
+        System.out.println("watchlater Get - Username: "+thisuser);
+        List<MovieDTO> movieDTOList = facade.getWatchLaterList(thisuser);
         return gson.toJson(movieDTOList);
     }
 
 
     @POST
-    @Path("watchLater/{id}")
-    //@RolesAllowed("user")
+    @Path("watchlater/{id}")
+    @RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
     public String addWatchLater(@PathParam("id") String id){
-//        String thisuser = securityContext.getUserPrincipal().getName();
-        String thisuser = "user1";
-        return gson.toJson(facade.addWatchLater(thisuser,id));
+        String thisuser = securityContext.getUserPrincipal().getName();
+        System.out.println("watchlater Post - Username: "+thisuser);
+        String watchLater = facade.addWatchLater(thisuser,id);
+        return gson.toJson(watchLater);
     }
 
     @DELETE
-    @Path("watchLater/{id}")
-    //@RolesAllowed("user")
+    @Path("watchlater/{id}")
+    @RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteWatchLater(@PathParam("id") String id){
-//        String thisuser = securityContext.getUserPrincipal().getName();
-
-        return gson.toJson(facade.deleteWatchLater(id));
+        String thisuser = securityContext.getUserPrincipal().getName();
+        System.out.println("watchlater Delete - Username: "+thisuser);
+        return gson.toJson(facade.deleteWatchLater(thisuser,id));
     }
-
-    // TODO: 02-12-2021 Younes - Lav frontend Delete (Watchlater) - tilføj like til forside (liste) og knap til at like på begge sidder (Søgning og watchlater!)
-
 }
