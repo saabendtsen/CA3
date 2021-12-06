@@ -134,8 +134,7 @@ public class LoginEndpointTest {
                 .header("x-access-token", securityToken)
                 .when()
                 .get("/info/admin").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello: admin   -   Role: admin"));
+                .statusCode(200);
     }
 
     @Test
@@ -146,8 +145,7 @@ public class LoginEndpointTest {
                 .header("x-access-token", securityToken)
                 .when()
                 .get("/info/user").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello: user   -   Role: user"));
+                .statusCode(200);
     }
 
     @Test
@@ -181,8 +179,8 @@ public class LoginEndpointTest {
                 .header("x-access-token", securityToken)
                 .when()
                 .get("/info/admin").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello: user_admin   -   Role: admin"));
+                .statusCode(200);
+
     }
 
     @Test
@@ -193,8 +191,8 @@ public class LoginEndpointTest {
                 .header("x-access-token", securityToken)
                 .when()
                 .get("/info/user").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello: user_admin   -   Role: user"));
+                .statusCode(200);
+
     }
 
     @Test
