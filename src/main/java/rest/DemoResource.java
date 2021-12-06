@@ -145,7 +145,8 @@ public class DemoResource {
     public String createUser(String newUser) {
         UserDTO userDTO = gson.fromJson(newUser, UserDTO.class);
         userDTO = facade.createUser(userDTO);
-
+        System.out.println("DTO: "+ userDTO.getUsername()+" - "+userDTO.getPassword());
+        System.out.println("String: "+ newUser);
         return gson.toJson(userDTO);
     }
 
