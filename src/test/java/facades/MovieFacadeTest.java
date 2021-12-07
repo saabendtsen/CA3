@@ -16,6 +16,8 @@ class MovieFacadeTest {
 
     private static EntityManagerFactory emf;
     private static MovieFacade facade;
+    private static User user;
+    private static User admin;
 
 
 
@@ -26,16 +28,12 @@ class MovieFacadeTest {
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
         facade = MovieFacade.getMovieFacade(emf);
-    }
-
-    @AfterAll
-    public static void tearDownClass() {
-//        Clean up database after test is done or use a persistence unit with drop-and-create to start up clean on every test
         EntityManager em = emf.createEntityManager();
+
         try {
             em.getTransaction().begin();
-            User user = new User("user", "user1");
-            User admin = new User("admin", "admin1");
+            user = new User("user", "user1");
+            admin = new User("admin", "admin1");
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             user.addRole(userRole);
@@ -48,7 +46,11 @@ class MovieFacadeTest {
         } finally {
             em.close();
         }
+    }
 
+    @AfterAll
+    public static void tearDownClass() {
+//        Clean up database after test is done or use a persistence unit with drop-and-create to start up clean on every test
     }
 
     @BeforeEach
@@ -62,25 +64,27 @@ class MovieFacadeTest {
 
     @Test
     void addlikeToMovie() {
-
-
         MovieLikes movieLikes = facade.addlikeToMovie("tt4972582");
-
         assertEquals(movieLikes.getQuantity(),1);
-
-
     }
 
     @Test
     void addWatchLater() {
+        String actual = facade.addWatchLater(user.getUsername(),"tt4972582");
+        assertTrue(actual.length()>0);
     }
 
     @Test
     void deleteWatchLater() {
+
+
     }
 
     @Test
     void getWatchLaterList() {
+
+
+
     }
 
     @Test
