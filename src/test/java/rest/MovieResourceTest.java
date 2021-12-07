@@ -167,17 +167,88 @@ class MovieResourceTest {
     @Test
     void getLikedMovies() {
         login("user","user1");
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .when()
+                .post("/movie/like/tt2294629")
+                .then().statusCode(200);
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .when()
+                .post("/movie/like/tt1323045")
+                .then().statusCode(200);
+
+        List<MovieDTO> movieDTOS;
+        movieDTOS = given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .when()
+                .get("/movie/like")
+                .then().statusCode(200)
+                .extract().body().jsonPath().getList("",MovieDTO.class);
+
+        assertEquals(movieDTOS.size(),2);
     }
 
     @Test
     void getWatchLater() {
+        login("user","user1");
+
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .when()
+                .post("/movie/watchlater/tt2294629")
+                .then().statusCode(200);
+
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .when()
+                .post("/movie/watchlater/tt1323045")
+                .then().statusCode(200);
+
+        List<MovieDTO> movieDTO;
+        movieDTO = given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .when()
+                .get("/movie/watchlater")
+                .then().statusCode(200)
+                .extract().body().jsonPath().getList("",MovieDTO.class);
+
+        assertEquals(movieDTO.size(),2);
     }
 
     @Test
     void addWatchLater() {
+        login("user","user1");
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .when()
+                .post("/movie/watchlater/tt1323045")
+                .then().statusCode(200);
+
     }
 
     @Test
     void deleteWatchLater() {
+    login("user","user1");
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .when()
+                .post("/movie/watchlater/tt1323045")
+                .then().statusCode(200);
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .when()
+                .delete("/movie/watchlater/tt1323045")
+                .then().statusCode(200);
     }
+
 }
