@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.MovieDTO;
 import entities.MovieLikes;
 import entities.RenameMe;
 import entities.Role;
@@ -9,6 +10,8 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,30 +67,38 @@ class MovieFacadeTest {
 
     @Test
     void addlikeToMovie() {
+
+
         MovieLikes movieLikes = facade.addlikeToMovie("tt4972582");
-        assertEquals(movieLikes.getQuantity(),1);
+        long before = movieLikes.getQuantity();
+        movieLikes = facade.addlikeToMovie("tt4972582");
+        long after = movieLikes.getQuantity();
+        assertEquals(before,after-1);
     }
 
     @Test
-    void addWatchLater() {
+    void testWatchLater() throws Exception {
         String actual = facade.addWatchLater(user.getUsername(),"tt4972582");
         assertTrue(actual.length()>0);
-    }
 
-    @Test
-    void deleteWatchLater() {
+        List<MovieDTO> list = facade.getWatchLaterList(user.getUsername());
+        assertEquals(list.size(),1);
 
+        facade.deleteWatchLater(user.getUsername(),"tt4972582");
+        list = facade.getWatchLaterList(user.getUsername());
 
-    }
-
-    @Test
-    void getWatchLaterList() {
-
-
+        assertEquals(list.size(),0);
 
     }
 
+
     @Test
-    void getTopLikedList() {
+    void getTopLikedList() throws Exception {
+
+        for (int i = 0; i < 10; i++) {
+            facade.addlikeToMovie("tt4972582");
+        }
+        List<MovieDTO> list = facade.getTopLikedList();
+        assertTrue(list.get(0).getId().equals("tt4972582"));
     }
 }
