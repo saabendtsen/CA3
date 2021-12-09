@@ -140,7 +140,7 @@ public class DemoResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("createUser")
+    @Path("createuser")
     @Consumes(MediaType.APPLICATION_JSON)
     public String createUser(String newUser) {
         UserDTO userDTO = gson.fromJson(newUser, UserDTO.class);
@@ -151,7 +151,7 @@ public class DemoResource {
     }
 
     @DELETE
-    @Path("admin/deleteUser/{name}")
+    @Path("admin/deleteuser/{name}")
     @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -163,7 +163,7 @@ public class DemoResource {
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("editUser")
+    @Path("edituser")
     @Consumes(MediaType.APPLICATION_JSON)
     public String editUser(String newUser) {
         UserDTO userDTO = gson.fromJson(newUser, UserDTO.class);
