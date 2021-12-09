@@ -102,7 +102,6 @@ public class DemoResource {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("user")
     @RolesAllowed("user")
     public String getFromUser() {
@@ -112,7 +111,6 @@ public class DemoResource {
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("admin")
     @RolesAllowed("admin")
     public String getFromAdmin() {
@@ -146,7 +144,6 @@ public class DemoResource {
     @Path("admin/deleteuser/{name}")
     @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public String deleteUser(@PathParam("name") String name) {
         UserDTO userDTO = facade.deleteUser(name);
 
