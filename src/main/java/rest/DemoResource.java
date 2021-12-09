@@ -28,7 +28,7 @@ public class DemoResource {
 
     @Context
     private UriInfo context;
-    private UserFacade facade = UserFacade.getUserFacade(EMF);
+    private final UserFacade facade = UserFacade.getUserFacade(EMF);
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Context
@@ -100,24 +100,6 @@ public class DemoResource {
         return "Dummy likes created";
     }
 
-
-    @GET
-    @Path("crypto")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getCrypto() throws IOException {
-        String catFact = HttpUtils.fetchData("https://api.coindesk.com/v1/bpi/currentprice.json");
-        return catFact;
-    }
-
-    @GET
-    @Path("catfact")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getCatFacts() throws IOException {
-        String catFact = HttpUtils.fetchData("https://catfact.ninja/fact");
-        return catFact;
-    }
-
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user")
@@ -145,8 +127,7 @@ public class DemoResource {
     public String createUser(String newUser) {
         UserDTO userDTO = gson.fromJson(newUser, UserDTO.class);
         userDTO = facade.createUser(userDTO);
-        System.out.println("DTO: "+ userDTO.getUsername()+" - "+userDTO.getPassword());
-        System.out.println("String: "+ newUser);
+        System.out.println("User: "+ newUser + " Created");
         return gson.toJson(userDTO);
     }
 
@@ -157,7 +138,7 @@ public class DemoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public String deleteUser(@PathParam("name") String name) {
         UserDTO userDTO = facade.deleteUser(name);
-
-        return "Deleted user " + gson.toJson(userDTO);
+        System.out.println("User: "+ name + " Deleted");
+        return gson.toJson(userDTO);
     }
 }
