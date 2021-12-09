@@ -82,4 +82,18 @@ public class UserFacade {
             em.close();
         }
     }
+
+    public UserDTO updateUser(UserDTO userDTO) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            User user = em.find(User.class,userDTO.getUsername());
+            user.setPassword(user.getPassword());
+            em.merge(user);
+            em.getTransaction().commit();
+            return new UserDTO(user);
+        } finally {
+            em.close();
+        }
+    }
 }

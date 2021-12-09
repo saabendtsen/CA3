@@ -28,7 +28,6 @@ class MovieMapperTest {
 
         assertEquals(movieDTOList.get(0).getMovieName(), "Frozen Planet");
         assertTrue(movieDTOList.size() == 3);
-
     }
 
     @Test
