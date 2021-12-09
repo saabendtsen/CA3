@@ -157,7 +157,19 @@ public class DemoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public String deleteUser(@PathParam("name") String name) {
         UserDTO userDTO = facade.deleteUser(name);
-
         return "Deleted user " + gson.toJson(userDTO);
+    }
+
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("editUser")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String editUser(String newUser) {
+        UserDTO userDTO = gson.fromJson(newUser, UserDTO.class);
+        userDTO = facade.updateUser(userDTO);
+        System.out.println("DTO: "+ userDTO.getUsername()+" - "+userDTO.getPassword());
+        System.out.println("String: "+ newUser);
+        return gson.toJson(userDTO);
     }
 }
