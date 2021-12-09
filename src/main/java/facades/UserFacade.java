@@ -6,6 +6,7 @@ import entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.core.HttpHeaders;
 
 import org.apache.http.client.HttpClient;
@@ -15,6 +16,8 @@ import org.apache.http.impl.client.HttpClients;
 import security.errorhandling.AuthenticationException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author lam@cphbusiness.dk
@@ -87,11 +90,25 @@ public class UserFacade {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            User user = em.find(User.class,userDTO.getUsername());
+            User user = em.find(User.class, userDTO.getUsername());
             user.setPassword(user.getPassword());
             em.merge(user);
             em.getTransaction().commit();
             return new UserDTO(user);
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<UserDTO> getAllUsers() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            TypedQuery<User> query = em.createQuery("SELECT u from User u", User.class);
+            List<User> users = query.getResultList();
+            em.getTransaction().commit();
+            List<UserDTO> userDTOList = UserDTO.getDtos(users);
+            return userDTOList;
         } finally {
             em.close();
         }

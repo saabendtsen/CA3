@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
+import java.util.List;
 
 @Path("/info")
 public class DemoResource {
@@ -137,6 +138,16 @@ public class DemoResource {
         String welcome = "Welcome "+ thisuser;
         return gson.toJson(welcome);
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("admin")
+    @RolesAllowed("admin")
+    public String getAllUsers() {
+        List<UserDTO> userDTOList = facade.getAllUsers();
+        return gson.toJson(userDTOList);
+    }
+
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
