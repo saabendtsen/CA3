@@ -121,7 +121,7 @@ public class DemoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("admin")
+    @Path("admin/users")
     @RolesAllowed("admin")
     public String getAllUsers() {
         List<UserDTO> userDTOList = facade.getAllUsers();

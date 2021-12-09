@@ -16,7 +16,7 @@ public class SetupTestUsers {
 
     User user = new User("user", "user1");
     User user1 = new User("user1", "user1");
-//    User admin = new User("admin", "admin1");
+    User admin = new User("admin", "admin1");
 
     try {
       em.getTransaction().begin();
@@ -26,7 +26,7 @@ public class SetupTestUsers {
       WatchList watchList1 = new WatchList("tt11126994"); // Arcane
       user.addRole(userRole);
       user1.addRole(userRole);
-//      admin.addRole(adminRole);
+      admin.addRole(adminRole);
       user.addToWatchList(watchList);
       user.addToWatchList(watchList1);
       user1.addToWatchList(watchList);
@@ -37,7 +37,7 @@ public class SetupTestUsers {
       em.persist(watchList1);
       em.persist(user);
       em.persist(user1);
-//      em.persist(admin);
+      em.persist(admin);
       em.getTransaction().commit();
       System.out.println("Users Created!");
     } catch (Exception e){

@@ -91,7 +91,7 @@ public class UserFacade {
         try {
             em.getTransaction().begin();
             User user = em.find(User.class, userDTO.getUsername());
-            user.setPassword(user.getPassword());
+            user.setPassword(userDTO.getPassword());
             em.merge(user);
             em.getTransaction().commit();
             return new UserDTO(user);
